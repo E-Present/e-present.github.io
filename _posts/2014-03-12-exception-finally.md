@@ -29,7 +29,6 @@ I was upgrading a Java web application toWebSphere server version 6.1 and as the
     }
   }
   ```
-  
 This was not code I had written, so I spent some time trying to figure out the reason for the warning. In Java, the finally block is guaranteed to be executed after the contained try block finishes execution, even if an exception is thrown within the try block. If an exception is thrown and not caught within a function, the exception is propagated up the call stack until it encounters an appropriate catch block. But in this particular case within the performBusinessOperation method, if an uncaught exception is thrown, the finally block will run and perform the return statement. So which will win - the exception or the return? I was not sure, which in my mind explained the warning - it is bad practice to write code with unclear behavior. So I fixed the code by moving the return statement outside the finally block and moved on to the next warning.
 Once I was finished eliminating warnings, I ran the entire suite of automated unit tests. To my surprise, I had a few failures. When I tracked down the offending code, I was surprised to see that it was my fix for the "Finally block does not complete normally" warning that broke the tests. How could that be? After further tracing and debugging, I finally found the reason: the unit test incorrectly invoked the method in question, causing it to throw a NullPointerException from within the try block. Having the return statement within the finally block apparently was causing the exception to be silently discarded. I found this shocking. This is dangerous behavior for a language, and I had problems believing that was actually the case. So I wrote a quick unit test for verification, shown below.
 
@@ -66,7 +65,6 @@ public class ReturnInFinallyBlockExample
   }
 }
 ```
-
 This test case passes, demonstrating that the uncaught exception within the try block is silently discarded if the return statement is within the finally block. Note my use of the Java 5 annotation@SuppressWarnings("finally") in order to stop the compiler from reporting the "Finally block does not complete normally" warning for this example.
 Perhaps I should have been less surprised by this behavior in Java given that I was already aware of another suboptimal situation regarding Java exception handling in finally blocks: if an uncaught exception is thrown in a try block and then another exception is thrown in the finally block, it will be the second exception that is propagated out of the method. The first exception will be silently lost. The following test case demonstrates this behavior:
 
@@ -91,7 +89,6 @@ public class ExceptionInFinallyBlockExample
   }
 }
 ```
-
 Ignoring errors is dangerous, as I have discussed in my article on Error Handling and Reliability. So I strongly feel that the Java language should have prohibited return statements in finally blocks. Fortunately, modern Java IDEs like Eclipse can make up for this shortcoming by allowing you to flag this code construct as an error rather than a warning.
 
 # finally的使用
