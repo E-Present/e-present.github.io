@@ -62,6 +62,5 @@ s = s ＋ user.getName();
 PS. slf4j中的StringBuilder在原始Message之外预留了50个字符，如果可变参数加起来长过50字符还是得复制扩容......而且StringBuilder也没有重用。
  
 * 8. 小结
-
-       StringBuilder默认的写法，会为129长度的字符串拼接，合共申请625字符的数组。所以高性能的场景下，永远要考虑用一个ThreadLocal 可重用的StringBuilder。由于线程私有之后，单个线程执行就是串行的，顺序执行的，就可以在用到StringBuilder时
+   StringBuilder默认的写法，会为129长度的字符串拼接，合共申请625字符的数组。所以高性能的场景下，永远要考虑用一个ThreadLocal 可重用的StringBuilder。由于线程私有之后，单个线程执行就是串行的，顺序执行的，就可以在用到StringBuilder时
 取出线程私有的StringBuilder，也不会产生线程安全问题，同时减少了String对象的创建次数，故而提高性能。
