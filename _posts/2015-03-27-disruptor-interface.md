@@ -12,7 +12,7 @@ permalink: /blogs/disruptor-interface
    disruptor.handleEventsWithWorkerPool(new WorkHandlerObject(), new WorkHandlerObject(), new WorkHandlerObject());
      //此处的处理方式，每个work会处理一条消息，当前顺序如下: 
      
-     ```
+```
                    QQ0>>>pool-1-thread-1  
                    QQ1>>>pool-1-thread-3
                    QQ2>>>pool-1-thread-2
@@ -38,7 +38,7 @@ permalink: /blogs/disruptor-interface
     
  //此方式，每个消息都会被当前添加的EvenHandler顺序处理，此处的处理顺序如下：
  
- ```
+```
                  QQ0>>>pool-1-thread-3
                    QQ0>>>pool-1-thread-2
                    QQ0>>>pool-1-thread-1
@@ -48,11 +48,11 @@ permalink: /blogs/disruptor-interface
                    QQ2>>>pool-1-thread-2
                    QQ2>>>pool-1-thread-1
                    QQ2>>>pool-1-thread-3
- ```
+```
 
 3. 接口EventProcessor其中的实现类：BatchEventProcessor的run方法的部分源码：
 4. 
- ```
+```
 final long availableSequence = sequenceBarrier .waitFor(nextSequence);
                     while (nextSequence <= availableSequence)
                     {
@@ -60,6 +60,7 @@ final long availableSequence = sequenceBarrier .waitFor(nextSequence);
                         eventHandler.onEvent(event, nextSequence, nextSequence == availableSequence);
                         nextSequence++;
                     }
-                    sequence.set( availableSequence);
-   ```
+                    sequence.set( availableSequence)
+```
+
 从这可以看出当前的一个线程执行时，他会先通过获取可用的sequece，然后从ringbuffer中消费
