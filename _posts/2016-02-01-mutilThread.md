@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Your Style"
+title:  "多线程"
 date:   2016-02-01 08:00
 categories: jekyll
 permalink: /blogs/mutil-thread
