@@ -40,6 +40,10 @@ permalink: /blogs/mysql-Innodb
 
 Read Uncommitted这种级别，数据库一般都不会用，而且任何操作都不会加锁，这里就不讨论了。
 
+参考资料
+	* MySQL参考手册
+	* 《高性能MySQL》第三版
+
 
 
 
