@@ -6,7 +6,7 @@ categories: java
 permalink: /blogs/close-http
 ---
 http协议一是建立在TCP协议之上的。所以一个http连接的也要经过三次握手才能建立。关闭连接时需要四次握手。如下图：
-![](http://e-present.github.io/images/http.png)
+![](http://e-present.github.io/images/http-close.png)
 
 一般服务器连接的配置：
 
