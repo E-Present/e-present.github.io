@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "java序列化与反序列化
+title:  "java序列化与反序列化"
 date:   2015-03-20 11:00
 categories: Java
 permalink: /blogs/java-serialization
