@@ -2,7 +2,7 @@
 layout: post
 title:  "ThreadLocal 和 InheritableThreadLocal的使用"
 date:   2015-9-19 12:38
-categories: Java
+categories: java
 permalink: /blogs/ThreadLocal
 ---
 1.  ThreadLocal
