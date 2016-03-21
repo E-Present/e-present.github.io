@@ -5,6 +5,7 @@ date:   2014-03-12 22:00:13
 categories: java
 permalink: /blogs/exception-finally
 ---
+
 (1)   There is always something more to learn. That was the lesson for me last week when I learned something new about the Java programming language, despite having used professionally it for almost 10 years.
 I was upgrading a Java web application toWebSphere server version 6.1 and as the first step I switched the development environment toRational Application Developer version 7. With the new IDE came an improved compiler that reported additional warnings, so it didn't surprise me to see hundreds of new warnings. It is a standard practice of mine to eliminate warnings, even harmless ones, since a significant warning can easily be missed if harmless warnings are allowed to remain. As I worked my way through the warnings, I came across a new one I did not recognize: "Finally block does not complete normally". A simplified version of the code producing this warning is shown below:
 
@@ -87,7 +88,7 @@ public class ExceptionInFinallyBlockExample
 
 Ignoring errors is dangerous, as I have discussed in my article on Error Handling and Reliability. So I strongly feel that the Java language should have prohibited return statements in finally blocks. Fortunately, modern Java IDEs like Eclipse can make up for this shortcoming by allowing you to flag this code construct as an error rather than a warning.
 
-(2)  finally的使用
+# finally的使用
     1 finally块中的return语句会覆盖try块、catch块中的return语句
     2 如果finally块中包含了return语句，即使前面的catch块重新抛出了异常，则调用该方法的语句也不会获得catch块重新抛出的异常，而是会得到finally块的返回值，并且不会捕获异常合理的做法是，既不在tryblock内部中使用return语句，也不在finally内部使用return语句，而应该在 finally 语句之后使用return来表示函数的结束和返回。
     
