@@ -15,9 +15,10 @@ permalink: /blogs/mysql-Innodb
 
 | 事务| 加锁/解锁处理 |
 |:-----:|:----:|
-| begin； | convallis lorem | 
+| begin | convallis lorem | 
 | insert into test ..... | 加insert对应的锁| 
 | update test set... | 加update对应的锁 |
 | delete from test ....| 加delete对应的锁|
-| commit;| 事务提交时，同时释放insert、update、delete对应的锁|
+| commit| 事务提交时，同时释放insert、update、delete对应的锁|
+
 这种方式虽然无法避免死锁，但是两段锁协议可以保证事务的并发调度是串行化（串行化很重要，尤其是在数据恢复和备份的时候）的。
