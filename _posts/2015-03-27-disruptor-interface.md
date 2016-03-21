@@ -3,7 +3,7 @@ layout: post
 title:  "Disruptor的消费者接口"
 date:   2015-03-27 13:00
 categories: java
-permalink: /blogs/close-http
+permalink: /blogs/disruptor-interface
 ---
 
 1.WorkHandler
