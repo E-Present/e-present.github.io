@@ -5,6 +5,7 @@ date:   2016-02-25 21:00:13
 categories: java
 permalink: /blogs/stringBuilder
 ---
+
 关于StringBuilder，一般同学只简单记住了，字符串拼接要用StringBuilder，不要用＋，也不要用StringBuffer，然后性能就是最好的了，真的吗吗吗吗？
 还有些同学，还听过三句似是而非的经验：
 1. Java编译优化后＋和StringBuilder的效果一样；
