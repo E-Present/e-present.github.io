@@ -2,7 +2,7 @@
 layout: post
 title:  "HttpClient使用"
 date:   2015-12-01 13:00
-categories: HttpClient
+categories: java
 permalink: /blogs/HttpClient-1
 ---
 # 下面是 httpClinet4.x的使用说明： 
