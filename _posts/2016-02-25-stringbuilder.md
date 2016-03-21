@@ -8,9 +8,9 @@ permalink: /blogs/stringBuilder
 
    关于StringBuilder，一般同学只简单记住了，字符串拼接要用StringBuilder，不要用＋，也不要用StringBuffer.....?
 还有些同学，还听过三句似是而非的经验：
-1. Java编译优化后＋和StringBuilder的效果一样；
-2. StringBuilder不是线程安全的，为了“安全”起见最好还是用StringBuffer；
-3. 永远不要自己拼接日志信息的字符串，交给slf4j来。
+* Java编译优化后＋和StringBuilder的效果一样；
+* StringBuilder不是线程安全的，为了“安全”起见最好还是用StringBuffer；
+* 永远不要自己拼接日志信息的字符串，交给slf4j来。
  
 1. 初始长度好重要，值得说四次。StringBuilder的内部有一个char[]， 不断的append()就是不断的往char[]里填东西的过程。
 new StringBuilder() 时char[]的默认长度是16，然后，如果要append第17个字符，怎么办？
