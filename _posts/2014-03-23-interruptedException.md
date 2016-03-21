@@ -17,6 +17,7 @@ while (true) {
 ```
 它做了什么？什么都没做，只是无止境的消耗 CPU。我们能终止它吗？在 Java 中是不行的。只有当你按下 Ctrl-C 来终止整个 JVM 时这段程序才会停止。在 Java 中没有方式来终止一个线程，除非该线程自动退出。请务必牢记的这一原则，其它东西就显而易见了。
 我们将这个死循环放在一个线程里：
+
 ```
 Thread loop = new Thread(
   new Runnable() {
@@ -32,6 +33,7 @@ loop.start();
 ```
 所以，怎样才能停止一个需要停止的线程？
 下面是 Java 中设计终止一个线程的方法。在线程的外部，设置一个标识变量（flag），然后在线程内部检查改标识变量，从而实现线程的终止。过程如下：
+
 ```
 Thread loop = new Thread(
   new Runnable() {
@@ -54,6 +56,7 @@ loop.interrupt();
 因此，总结一下我们现在理解的内容，一种合理的设计是通过检查标识变量来优雅地终止线程。如果代码中不检测标识变量，也不调用 Thread.interrupted()，那么终止线程的方式就只能按下 Ctrl-C 了。
 现在你听明白这个逻辑了吗？我希望是。
 现在，JDK 中有一些方法来检测标识变量，如果设置该标识变量，则会抛出 InterruptedException。例如，Thread.sleep() 方法的设计（一种最基本的方法）：
+
 ```
 public static void sleep(long millis)
   throws InterruptedException {
@@ -68,6 +71,7 @@ public static void sleep(long millis)
 为什么要这么做？为什么不能等待并且不用去检查标识变量？我相信一定有一个非常好的理由。理由如下（如果我说错了，请修正我的错误）：为了让代码变快或是中断准备，没有其他理由。
 如果你的代码足够快，你从来不会检测中断标识变量，因为你不想处理任何中断。如果你代码很慢，可能需要执行数秒，这时你就有可能需要处理中断了。
 这就是为什么 InterruptedException 是受检查异常。这种设计告诉你，如果你想在几毫秒内停止线程，确定你已经做好中断准备。实践中一般做如下处理：
+
 ```
 try {
   Thread.sleep(100);
@@ -79,6 +83,7 @@ try {
 线程的拥有者不想再等待线程执行，我们应该尊重拥有者的决定。
 因此，当捕获到 InterruptedException 时，你应该完成相关的操作再退出线程。
 现在，我们再看一下 Thread.sleep() 的代码：
+
 ```
 public static void sleep(long millis)
   throws InterruptedException {
@@ -93,6 +98,7 @@ public static void sleep(long millis)
 线程的所有者要求停止线程，Thread.sleep() 监测到该请求并将其删除，再抛出 InterruptedException。如果你再次调用 Thread.sleep()，就不会响应任何中断请求，也不会抛出任何异常。
 知道我想要说的是什么吗？不要丢失 InterruptedException，这一点非常重要。我们不能吞噬该异常并继续运行。这严重违背了 Java 多线程原则。所有者（线程的所有者）要求停止线程，而我们却将其忽略，这是非常不好的想法。
 下面是大多数人对 InterruptedException 的处理：
+
 ```
 try {
   Thread.sleep(100);
