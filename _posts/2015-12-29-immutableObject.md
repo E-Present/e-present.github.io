@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "ImmutableObject（不可变对象模型）"
-date:   2015-21-29 16:12
+date:   2015-12-29 16:12
 categories: java
 permalink: /blogs/immutableObject
 ---
