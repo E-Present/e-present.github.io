@@ -6,7 +6,7 @@ categories: java
 permalink: /blogs/close-http
 ---
 http协议一是建立在TCP协议之上的。所以一个http连接的也要经过三次握手才能建立。关闭连接时需要四次握手。如下图：
-![](http://e-present.github.io/images/http-close.png)
+![](http://e-present.github.io/images/httpclose.png)
 
 一般服务器连接的配置：
 
@@ -74,4 +74,4 @@ TIME_WAIT的状态会出现在主动关闭链接的这一端。TCP协议中TIME_
 
 另外强调一下使用上面这些方法关闭链接是在我们的应用中明确知道不需要重用链接时可以主动关闭链接来释放资源。如果你的应用是需要重用链接的话就没必要这么做，使用原有的链接还可以提供性能。
 
-    TCP连接关闭：       假设Client端发起中断连接请求，也就是发送FIN报文。Server端接到FIN报文后，意思是说"我Client端没有数据要发给你了"，但是如果你还有数据没有发送完成，则不必急着关闭Socket，可以继续发送数据。所以你先发送ACK，"告诉Client端，你的请求我收到了，但是我还没准备好，请继续你等我的消息"。这个时候Client端就进入FIN_WAIT状态，继续等待Server端的FIN报文。当Server端确定数据已发送完成，则向Client端发送FIN报文，"告诉Client端，好了，我这边数据发完了，准备好关闭连接了"。Client端收到FIN报文后，"就知道可以关闭连接了，但是他还是不相信网络，怕Server端不知道要关闭，所以发送ACK后进入TIME_WAIT状态，如果Server端没有收到ACK则可以重传。“，Server端收到ACK后，"就知道可以断开连接了"。Client端等待了2MSL后依然没有收到回复，则证明Server端已正常关闭，那好，我Client端也可以关闭连接了。Ok，TCP连接就这样关闭了！
+    TCP连接关闭：       假设Client端发起中断连接请求，也就是发送FIN报文。Server端接到FIN报文后，意思是说"我Client端没有数据要发给你了"，但是如果你还有数据
