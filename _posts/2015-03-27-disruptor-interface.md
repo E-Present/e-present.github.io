@@ -11,10 +11,10 @@ permalink: /blogs/disruptor-interface
 
    disruptor.handleEventsWithWorkerPool(new WorkHandlerObject(), new WorkHandlerObject(), new WorkHandlerObject());
      //此处的处理方式，每个work会处理一条消息，当前顺序如下：
-   >        /*      QQ0>>>pool-1-thread-1
-   >               QQ1>>>pool-1-thread-3
-   >              QQ2>>>pool-1-thread-2
-   >               QQ3>>>pool-1-thread-1
+   >            QQ0>>>pool-1-thread-1
+   >                QQ1>>>pool-1-thread-3
+   >                QQ2>>>pool-1-thread-2
+   >                QQ3>>>pool-1-thread-1
    >                QQ5>>>pool-1-thread-2
    >                QQ4>>>pool-1-thread-3
    >                QQ6>>>pool-1-thread-1
@@ -22,7 +22,7 @@ permalink: /blogs/disruptor-interface
    >                QQ8>>>pool-1-thread-3
    >                QQ9>>>pool-1-thread-1
    >                QQ10>>>pool-1-thread-2
-   >                QQ11>>>pool-1-thread-3*/
+   >                QQ11>>>pool-1-thread-3
 
 2.EventHandler
 每个EnventHandler会串行的处理同一条消息，也就是说，每条信息都会被添加的EventHandler处理。例如：
